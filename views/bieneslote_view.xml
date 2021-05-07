@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+<!--
+
+    
+
+
+
+<!
+**************** bienes lote*******************
+-->        
+    
+        
+    <record model="ir.ui.view" id="view_bieneslote_form">
+        <field name="name">bieneslote.form</field>
+        <field name="model">bieneslote</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Registro en lote de Bienes Públicos">
+				
+				<sheet>
+                <group>
+                   <separator string='Informacion Fija del Bien' colspan="4"/> 
+                </group>
+                
+
+                <notebook>
+                    <page string="Datos Basicos" style="font-size:16px;">
+						<separator colspan="4" string="Identificación del Bien" style="font-size:14px;"/>
+						<sheet>
+							<group col="4" colspan="2">
+								<field name= "grupo_bien_id"/>
+								<field name= "clasificador_bien_id"/>
+								<field name= "modelo_bien_id"/>
+								<field name= "detalle_modelo_id"/>
+								<field name= "material_id"/>
+								<field name= "color_id"/>
+                                
+								<field name= "bienes_nombre" readonly="1" force_save="1"/>                                
+							</group>	
+						</sheet>
+						<hr style="width:100%; border-color:  #cadff6  ;"></hr>
+						<separator colspan="4" string="Ubicación del Bien" style="font-size:14px;"/>
+						<sheet>
+							<group col="4" colspan="2">
+								 <field name= "bienes_regiones_id"/>
+								 <field name= "bienes_sedes_id"/>
+								 <field name= "bienes_oficinas_id"/>
+								 <field name= "resp_uso_id" />
+							</group>
+						</sheet>
+
+						<hr style="width:100%; border-color:  #cadff6  ;"></hr>
+						<separator colspan="4" string="Ubicación Administrativa" style="font-size:14px;"/>
+						<sheet>
+							<group col="4" colspan="2">
+								 <field name= "fech_inventario" colspan="4"/>
+							</group>
+						</sheet>
+					    <hr style="width:100%; border-color:  #cadff6  ;"> </hr>  
+					</page>
+					
+                    <page string="Caracteristicas del Bien" style="font-size:16px;"> 
+                        <group col="4" colspan="2"> 
+                            <field name= "marcas_id" />
+                            <field name= "modelo_fab_id" />
+                            <field name= "medidas"/>
+                        </group>   
+                    </page>  
+                    
+ 
+                    <page string="Datos Requeridos por la SUDEBIP" style="font-size:16px;">         
+                         <separator colspan="4" string="Identificación del Bien según SUDEBIP" style="font-size:14px;"/>
+                         <group col="4" colspan="2">  
+							 <field name= "catalogo_sudebi_id"/>
+							 <field name= "catalogo_sudebi_sub_id"/>
+							 <field name= "catalogo_sudebi_esp_id"/>
+							 <field name= "color_sudebi_id"/>
+							 
+						 </group>
+                         <separator colspan="4" string="Datos administrativos según SUDEBIP" style="font-size:14px;"/>
+                            <group col="4" colspan="2"> 
+                                <field name="estatus_uso_id" attrs="{'required': True}" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' />
+                                <field name="estado_bien_id" attrs="{'required': True}"  options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                                <field name="condicion_fisica_id" attrs="{'required': True}"  options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+								<field name="poliza_id"/>
+							</group>
+							
+                         <hr style="width:100%; border-color:  #cadff6  ;"> </hr>
+                                
+                         <separator colspan="4" string="Datos Garantia" style="font-size:14px;"/>    
+                            <group col="4" colspan="2">      
+                                   <field name="unidad_garantia"/>
+                                   <field name="garantia" select="0"/>
+                                   <field name="fecha_ini_garantia"/>
+                                   <field name="fecha_fin_garantia"/>
+                            </group> 							
+					</page>	
+
+          <page string="Registro de bienes por lote" style="font-size:16px;">     
+               <separator colspan="4" string="Información de los Bienes" style="font-size:14px;"/>
+                   
+                    <newline/>
+                            <header>
+                                <button name="pasar_lote"  string="Pasar Lotes" 
+                                        type="object" class="oe_edit_only"
+                                        attrs="{'invisible': [('bieneslote_deta_ids','=',[])]}"  
+                                        confirm="Desea Registrar los Bienes en el Inventario Inicial ? " 
+                                        />
+                              </header>
+                     <hr style="width:100%; border-color:  #cadff6  ;"> </hr>          
+                    <field name="bieneslote_deta_ids">
+                   
+                        <tree editable="True">
+                         <!--   <field name="lote_bienes_id" /> -->
+                           <field name="bienes_numbien" />
+                           <field name="serial"/>
+                           
+                           <field name="bienes_ubica_id" string="Ubicación física"/>
+                           
+                           <field name="oficinas_id"  invisible="1"/> 
+                           
+                           <field name="bienes_piso" string="N° Piso"/>
+                           <field name="costo" string="Costo Bien"/> 
+                           <field name="detalle_adquisi_id" string="Detalle Adquisición"/>
+                           
+                           
+                           <field name="tipo_estatus_inventario_id" string="Estatus Inventario"/> 
+                           
+                           <field name="observacion" string="Observación"/> 
+                           <field name="ubicacion_fisica_codigo"  invisible="1"/>
+                           <field name="detalle_adquisi_codigo"  invisible="1"/>
+                           <field name="forma_adquisicion_codigo"  invisible="1"/>
+                           <field name="cod_estatus"  invisible="1"/>
+                           
+                           
+                          
+      
+                        </tree>
+                         
+
+                     </field>  
+
+          </page>     
+
+
+				</notebook>
+				</sheet>
+				
+			   <!-- codigos ocultos -->
+			   <!--  Identificacion bien --> 	
+			         <field name= "grupo_bien_codigo" attrs="{'invisible': True}" />
+			         <field name= "clasificador_codigo" attrs="{'invisible': True}" />
+			   	     <field name= "modelo_codigo" attrs="{'invisible': True}" />
+					 <field name= "detalle_modelo_codigo" attrs="{'invisible': True}" />
+                     <field name= "material_codigo" attrs="{'invisible': True}" /> 
+                     <field name= "color_codigo" attrs="{'invisible': True}" />
+					 <field name= "tipo_bien_codigo" attrs="{'invisible': True}" />
+					 <field name= "tipo_bien_id" attrs="{'invisible': True}" />
+				<!-- Ubicación del bien -->
+					 <field name= "bienes_regiones_codigo" attrs="{'invisible': True}" />
+					 <field name= "bienes_sedes_codigo" attrs="{'invisible': True}" />
+					 <field name= "bienes_oficinas_codigo" attrs="{'invisible': True}" />
+					 <field name= "cedu_resp_uso" attrs="{'invisible': True}" />
+					 <field name= "bienes_ministerio_codigo" attrs="{'invisible': True}" /> 	
+					 <field name= "bienes_ministerio_id" attrs="{'invisible': True}" />
+					 
+					 							 
+		        <!-- Caracteristicas del vehiculo -->  
+                     <field name= "marcas_codigo" attrs="{'invisible': True}" />
+                     <field name= "modelo_fab_codigo" attrs="{'invisible': True}" />							
+				
+				<!-- Sudebip -->	   
+					 <field name= "catalogo_sudebi_codigo" attrs="{'invisible': True}" />
+					 <field name= "catalogo_sudebi_sub_codigo" attrs="{'invisible': True}" />
+					 <field name= "catalogo_sudebi_esp_codigo" attrs="{'invisible': True}" />
+					 <field name= "color_sudebi_codigo" attrs="{'invisible': True}" />							 
+                     <field name= "estatus_uso_codigo" attrs="{'invisible': True}" />
+                     <field name= "estado_bien_codigo" attrs="{'invisible': True}" />
+                     <field name= "condicion_fisica_codigo" attrs="{'invisible': True}" />
+					 <field name= "poliza_codigo" attrs="{'invisible': True}" />                  
+
+
+                                
+
+               
+                
+           
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_bieneslote_tree">
+        <field name="name">bieneslote.tree</field>
+        <field name="model">bieneslote</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Registro de Bienes en lote">
+				 <field name= "grupo_bien_id"/>
+				 <field name= "bienes_nombre"/>
+				 <field name= "marcas_id" />
+				 <field name= "fech_inventario" string="Fecha Inventario"/>
+				 <field name= "bienes_oficinas_id"/>
+				 <field name= "resp_uso_id" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_bieneslote">
+        <field name="name">Bienes Público por Lote</field>
+        <field name="res_model">bieneslote</field>
+       
+         <field name = "context">
+           {'readonly_by_pass': ['bienes_nombre']}
+        </field>
+        <field name="view_mode">tree,form</field>
+  
+      
+    </record>
+   <menuitem name="Registro de Bienes por lotes" id="menu_lotes" web_icon="bienes_lote,static/description/bienes-muebles-1.png" sequence="450"/>
+        
+    <menuitem name="Registro de Bienes por lotes" id="registro_lote_bien" parent="menu_lotes" action="action_bieneslote"/>
+                 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+**************************************Menues********************************
+ -->
+         
+
+        
+</data>
+</odoo>
